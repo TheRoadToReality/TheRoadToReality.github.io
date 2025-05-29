@@ -1,0 +1,471 @@
+/* static/css/engineer-bg.css */
+
+/* 引入外部字体 */
+@import url("https://fonts.cdnfonts.com/css/thegoodmonolith");
+
+@font-face {
+  src: url("https://fonts.cdnfonts.com/css/pp-neue-montreal") format("woff2");
+  font-family: "PP Neue Montreal", sans-serif;
+  font-weight: 400;
+}
+
+/* 主题色与排版变量 */
+:root {
+  --warm-off-white: #f5f5f0;
+  --warm-off-white-dim: #d9d9d0;
+  --text-primary: #f5f5f0;
+  --text-secondary: #d9d9d0;
+  --background-dark: #050505;
+  --background-gradient-1: #1a1a1a;
+  --background-gradient-2: #0a0a0a;
+
+  --font-primary: "PP Neue Montreal", sans-serif;
+  --font-secondary: "TheGoodMonolith", sans-serif;
+
+  --transition-fast: 0.3s ease;
+  --transition-medium: 0.5s cubic-bezier(0.445, 0.05, 0.55, 0.95);
+
+  --spacing-small: 0.5rem;
+  --spacing-medium: 1rem;
+  --spacing-large: 2rem;
+
+  --font-size-small: 0.825rem;
+  --font-size-regular: 1rem;
+  --font-size-medium: 1.5rem;
+  --font-size-large: 4rem;
+}
+
+/* 全局重置与基础设置 */
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  font-size: 16px;
+}
+@media (min-width: 768px) {
+  html { font-size: 18px; }
+}
+@media (min-width: 1200px) {
+  html { font-size: 20px; }
+}
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;      /* 隐藏横向溢出 */
+  overflow-y: auto;        /* 保留纵向滚动 */
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("https://img.freepik.com/premium-photo/white-dust-scratches-black-background_279525-2.jpg?w=640");
+  background-repeat: repeat;
+  opacity: 0.05;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* WebGL 容器背景 */
+#container {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    circle at 30% 30%,
+    var(--background-gradient-1) 0%,
+    var(--background-gradient-2) 70%,
+    var(--background-dark) 100%
+  );
+  z-index: 0;
+}
+
+/* UI & Stats 容器 */
+#ui-container {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 100;
+  opacity: 0.8;
+  transition: opacity var(--transition-fast);
+}
+#ui-container:hover { opacity: 1; }
+#stats {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+/* 全局最小宽度调整 */
+.tp-dfwv { min-width: 280px !important; }
+
+/* Header 区域 */
+.header-area {
+  position: fixed;
+  top: var(--spacing-large);
+  left: 0;
+  width: 100%;
+  padding: 0 var(--spacing-large);
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+}
+
+/* 左上角 Logo 切换 */
+.logo-container {
+  position: absolute;
+  left: var(--spacing-large);
+  top: 0;
+  display: flex;
+  align-items: center;
+  height: 2rem;
+  z-index: 10;
+}
+.logo-circles {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.circle {
+  position: absolute;
+  border-radius: 50%;
+  transition: transform var(--transition-medium);
+  width: 1.4rem;
+  height: 1.4rem;
+  background-color: var(--warm-off-white);
+  top: 50%;
+}
+.circle-1 {
+  left: 0;
+  transform: translate(0, -50%);
+}
+.circle-2 {
+  left: 0.8rem;
+  transform: translate(0, -50%);
+  mix-blend-mode: exclusion;
+}
+.logo-container:hover .circle-1 {
+  transform: translate(-0.5rem, -50%);
+}
+.logo-container:hover .circle-2 {
+  transform: translate(0.5rem, -50%);
+}
+
+/* 中央 Logo */
+.center-logo {
+  text-align: center;
+  z-index: 10;
+  height: 2rem;
+}
+#logo-text {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-medium);
+  line-height: 1;
+}
+.hero-photo {
+  position: absolute;
+  /* 调整到 Hero 区的顶部中央（或其它位置） */
+  top: 12rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+}
+
+.hero-photo img {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+}
+
+.animated-photo {
+  animation: floatScale 4s ease-in-out infinite;
+}
+
+@keyframes floatScale {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-10px) scale(1.05);
+  }
+}
+
+/* Hero 文字 */
+/* ========== Hero 容器入口＋呼吸动画 ========== */
+.hero {
+  position: fixed;
+  inset: 50% auto auto 50%;
+  transform: translate(-50%, -50%) scale(1);
+  text-align: center;
+  z-index: 10;
+
+  /* 入口动画 */
+  opacity: 0;
+  animation:
+    hero-entrance 0.8s ease-out forwards,
+    hero-bg-pulse 8s ease-in-out infinite alternate;
+}
+
+/* 主标题分段延迟出现 */
+.hero h1 {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-large);
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+
+  opacity: 0;
+  transform: translateY(10px);
+  animation: hero-title-in 0.6s ease-out forwards;
+  animation-delay: 0.5s;
+}
+
+/* 副标题分段延迟出现 */
+.hero p {
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-small);
+  color: var(--text-secondary);
+  margin-top: 1.2rem;
+
+  opacity: 0;
+  transform: translateY(10px);
+  animation: hero-subtitle-in 0.6s ease-out forwards;
+  animation-delay: 0.9s;
+}
+
+/* ====== 关键帧定义 ====== */
+@keyframes hero-entrance {
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+@keyframes hero-title-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes hero-subtitle-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes hero-bg-pulse {
+  from { transform: translate(-50%, -50%) scale(1); }
+  to   { transform: translate(-50%, -50%) scale(1.03); }
+}
+.hero::after {
+  content: "⌄";
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  opacity: 0.6;
+  animation: arrow-bounce 1.5s infinite;
+}
+@keyframes arrow-bounce {
+  0%,100% { transform: translate(-50%, 0); opacity: 0.6; }
+  50%     { transform: translate(-50%, 10px); opacity: 1; }
+}
+
+
+/* 联系方式 */
+.contact-info {
+  position: fixed;
+  top: 50%;
+  left: var(--spacing-large);
+  transform: translateY(-50%);
+  z-index: 10;
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-small);
+  letter-spacing: -0.02em;
+}
+.contact-heading {
+  font-size: var(--font-size-regular);
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-small);
+}
+.contact-email {
+  display: block;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+.contact-email:hover {
+  color: var(--text-secondary);
+}
+
+/* Footer 链接 */
+.footer-links {
+  position: fixed;
+  bottom: var(--spacing-large);
+  left: var(--spacing-large);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.footer-link {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-regular);
+  color: var(--warm-off-white-dim);
+  text-decoration: none;
+  position: relative;
+  padding-left: 0;
+  transition: all var(--transition-fast);
+}
+.footer-link::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0;
+  height: 1px;
+  background-color: var(--warm-off-white);
+  transform: translateY(-50%);
+  transition: width var(--transition-fast), opacity var(--transition-fast);
+  opacity: 0;
+}
+.footer-link:hover {
+  color: var(--warm-off-white);
+  padding-left: 1.2rem;
+}
+.footer-link:hover::before {
+  width: 0.8rem;
+  opacity: 1;
+}
+
+/* 右下坐标文字 */
+.coordinates {
+  position: fixed;
+  bottom: var(--spacing-large);
+  right: var(--spacing-large);
+  text-align: right;
+  z-index: 10;
+  font-family: var(--font-secondary);
+  font-size: var(--font-size-small);
+  color: var(--text-secondary);
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 3rem; }
+  .footer-links { gap: 0.4rem; }
+  .coordinates { font-size: 0.7rem; }
+  .hero p { font-size: 0.8rem; }
+}
+@media (max-width: 480px) {
+  body { padding: var(--spacing-medium); }
+  .header-area,
+  .contact-info,
+  .footer-links,
+  .coordinates {
+    padding: 0 var(--spacing-medium);
+  }
+  .logo-container,
+  .contact-info,
+  .footer-links {
+    left: var(--spacing-medium);
+  }
+  .coordinates {
+    right: var(--spacing-medium);
+  }
+  .hero h1 { font-size: 2.2rem; }
+  .circle { width: 1.2rem; height: 1.2rem; }
+  .circle-2 { left: 0.7rem; }
+  #logo-text { font-size: 1.3rem; }
+  .contact-heading { font-size: 0.9rem; }
+  .contact-email { font-size: 1rem; }
+}
+/* 每个字符 span 默认颜色 */
+.hero h1 span {
+  display: inline-block;
+  color: var(--text-primary);
+}
+
+/* 高亮关键帧 */
+@keyframes hero-char-highlight {
+  0%, 10%   { color: var(--text-primary); }      /* 默认色 */
+  20%, 40%  { color: #ff66cc; }                   /* 粉色高亮 */
+  50%, 100% { color: var(--text-primary); }       /* 恢复默认 */
+}
+
+/* 给每个 span 加上动画 */
+.hero h1 span {
+  animation: hero-char-highlight 5s linear infinite;
+}
+
+/* 利用 nth-child 控制延迟，让它们依次高亮 */
+.hero h1 span:nth-child(1)  { animation-delay: 0s; }
+.hero h1 span:nth-child(2)  { animation-delay: 0.2s; }
+.hero h1 span:nth-child(3)  { animation-delay: 0.4s; }
+/* ...依次增加 delay ... */
+.hero h1 span:nth-child(4)  { animation-delay: 0.6s; }
+.hero h1 span:nth-child(5)  { animation-delay: 0.8s; }
+/* 如果你有 10 个字符，就写到 nth-child(10) */
+
+/* ==== 粉色云雾背景 ==== */
+.pink-clouds {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;             /* 在 WebGL (0) 之上，Hero (10) 之下 */
+}
+
+/* 云层1 */
+.pink-clouds::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 25% 30%,
+    rgba(255,102,204,0.25) 0%,
+    transparent 70%
+  );
+  filter: blur(120px);
+  opacity: 0.8;
+  animation: cloudMoveA 50s ease-in-out infinite;
+}
+
+/* 云层2 */
+.pink-clouds::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 75% 70%,
+    rgba(255,102,204,0.15) 0%,
+    transparent 70%
+  );
+  filter: blur(180px);
+  opacity: 0.6;
+  animation: cloudMoveB 65s ease-in-out infinite;
+}
+
+/* 运动轨迹 A */
+@keyframes cloudMoveA {
+  0%   { transform: translate(-20%, -10%); opacity: 0.8; }
+  25%  { transform: translate( 30%,  20%); opacity: 1;   }
+  50%  { transform: translate(-10%,  40%); opacity: 0.6; }
+  75%  { transform: translate( 20%, -30%); opacity: 1;   }
+  100% { transform: translate(-20%, -10%); opacity: 0.8; }
+}
+
+/* 运动轨迹 B */
+@keyframes cloudMoveB {
+  0%   { transform: translate( 20%,  10%); opacity: 0.6; }
+  25%  { transform: translate(-30%, -20%); opacity: 0.8; }
+  50%  { transform: translate( 10%, -40%); opacity: 0.4; }
+  75%  { transform: translate(-20%,  30%); opacity: 0.8; }
+  100% { transform: translate( 20%,  10%); opacity: 0.6; }
+}
