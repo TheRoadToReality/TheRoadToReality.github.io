@@ -1,3 +1,9 @@
+// 最顶端加这个
+if (!document.getElementById("container")) {
+  // 没有 #container 就不往下执行任何脚本
+  throw new Error("Skipping engineer-bg.js because #container not found");
+}
+
 // Import modules
 import * as THREE from "https://esm.sh/three@0.175.0";
 import { EffectComposer } from "https://esm.sh/three@0.175.0/examples/jsm/postprocessing/EffectComposer.js";
