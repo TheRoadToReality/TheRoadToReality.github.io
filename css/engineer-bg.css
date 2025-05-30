@@ -72,7 +72,7 @@ body::after {
 }
 
 /* WebGL 容器背景 */
-#container {
+/* #container {
   position: fixed;
   inset: 0;
   background: radial-gradient(
@@ -82,10 +82,10 @@ body::after {
     var(--background-dark) 100%
   );
   z-index: 0;
-}
+} */
 
 /* UI & Stats 容器 */
-#ui-container {
+/* #ui-container {
   position: fixed;
   top: 10px;
   right: 10px;
@@ -99,7 +99,7 @@ body::after {
   top: 0;
   left: 0;
   z-index: 100;
-}
+} */
 
 /* 全局最小宽度调整 */
 .tp-dfwv { min-width: 280px !important; }
@@ -117,7 +117,7 @@ body::after {
 }
 
 /* 左上角 Logo 切换 */
-.logo-container {
+/* .logo-container {
   position: absolute;
   left: var(--spacing-large);
   top: 0;
@@ -125,7 +125,7 @@ body::after {
   align-items: center;
   height: 2rem;
   z-index: 10;
-}
+} */
 .logo-circles {
   position: relative;
   width: 100%;
@@ -149,12 +149,12 @@ body::after {
   transform: translate(0, -50%);
   mix-blend-mode: exclusion;
 }
-.logo-container:hover .circle-1 {
+/* .logo-container:hover .circle-1 {
   transform: translate(-0.5rem, -50%);
 }
 .logo-container:hover .circle-2 {
   transform: translate(0.5rem, -50%);
-}
+} */
 
 /* 中央 Logo */
 .center-logo {
@@ -372,7 +372,7 @@ body::after {
   .coordinates {
     padding: 0 var(--spacing-medium);
   }
-  .logo-container,
+  /* .logo-container, */
   .contact-info,
   .footer-links {
     left: var(--spacing-medium);
