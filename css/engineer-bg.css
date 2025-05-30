@@ -169,20 +169,30 @@ body::after {
 }
 .hero-photo {
   position: absolute;
-  /* 调整到 Hero 区的顶部中央（或其它位置） */
-  top: 12rem;
+  /* 顶部距离用视口高度，缩放时更灵活 */
+  top: 15vh;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 20;
+  /* 降点层级，不要盖住 UI 或文字 */
+  z-index: 5;
+  /* 不阻拦下面元素的点击 */
+  pointer-events: none;
+  /* 宽度在 80px–160px 之间，根据视口宽度自动调整 */
+  width: clamp(80px, 20vw, 160px);
+  height: auto;
 }
 
 .hero-photo img {
-  width: 160px;
-  height: 160px;
+  /* 让 img 填满容器，不跑形 */
+  display: block;
+  width: 100%;
+  height: auto;
+  /* 保持圆形 */
   border-radius: 50%;
-  object-fit: cover;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  /* 如果需要投影，保留即可 */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
+
 
 .animated-photo {
   animation: floatScale 4s ease-in-out infinite;

@@ -876,43 +876,30 @@ console.log(
 );
 
 document.addEventListener("DOMContentLoaded", function () {
+  // ===== 邮件复制逻辑 Guard =====
   const emailLink = document.querySelector(".contact-email");
-  const originalText = emailLink.textContent;
-
-  emailLink.addEventListener("click", function (e) {
-    // Copy email to clipboard
-    navigator.clipboard
-      .writeText("hi@filip.fyi")
-      .then(function () {
-        // Change text to show it was copied
+  if (emailLink) {
+    const originalText = emailLink.textContent;
+    emailLink.addEventListener("click", function () {
+      navigator.clipboard.writeText("hi@filip.fyi").then(() => {
         emailLink.textContent = "e-mail copied to clipboard";
-
-        // After 2 seconds, change back to original text
-        setTimeout(function () {
+        setTimeout(() => {
           emailLink.textContent = originalText;
         }, 2000);
-      })
-      .catch(function (err) {
-        console.error("Could not copy email: ", err);
       });
-  });
-});
-document.addEventListener("DOMContentLoaded", () => {
+    });
+  }
+
+  // ===== Hero 拆字高亮逻辑 Guard =====
   const hero = document.querySelector(".hero h1");
-  if (!hero) return;
-
-  // 1. 将原文本拆成单字，并用 <span> 包裹
-  const text = hero.textContent.trim();
-  const chars = Array.from(text.replace(/\r?\n/, "")); // 包括换行字符
-  hero.innerHTML = chars.map(ch => {
-    if (ch === "\n" || ch === "<") return ch; // 保留换行或特殊
-    return `<span>${ch}</span>`;
-  }).join("");
-
-  // 2. 为换行处额外插入 <br>
-  hero.querySelectorAll("span").forEach((span, i) => {
-    if (chars[i] === "\n") {
-      span.replaceWith(document.createElement("br"));
-    }
-  });
+  if (hero) {
+    const text = hero.textContent.trim();
+    hero.textContent = "";
+    Array.from(text).forEach((char, i) => {
+      const span = document.createElement("span");
+      span.textContent = char;
+      span.style.animationDelay = `${i * 0.2}s`;
+      hero.appendChild(span);
+    });
+  }
 });
